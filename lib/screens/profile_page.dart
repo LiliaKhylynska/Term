@@ -44,8 +44,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               width: double.infinity,
               decoration: const BoxDecoration(
                 // border: Border.all(width: 3.0, color: Color.fromARGB(255, 94, 194, 164)),
@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
               text: 'Sign out',
               onPressed: () {},
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             SecondaryButton(

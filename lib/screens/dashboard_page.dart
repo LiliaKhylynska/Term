@@ -24,7 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        children: [
+        children: const [
           HomePage(),
           ProfilePage(),
           Scaffold(),
@@ -39,7 +39,7 @@ class _DashboardPageState extends State<DashboardPage> {
             selectedPageIndex = index;
           });
           pageController.animateToPage(index,
-              duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
+              duration: const Duration(milliseconds: 300), curve: Curves.bounceInOut);
         },
         type: BottomNavigationBarType.fixed,
         items: const [

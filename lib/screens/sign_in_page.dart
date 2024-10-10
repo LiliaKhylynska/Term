@@ -98,6 +98,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 Box(
                   child: PrimaryTextField(
+                    isPassword: true,
                     controller: passwordController,
                   ),
                 ),

@@ -23,6 +23,7 @@ class Box extends StatelessWidget {
               offset: Offset(2, 2))
         ],
       ),
+      child: child,
     );
   }
 }

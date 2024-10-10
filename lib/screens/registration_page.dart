@@ -41,8 +41,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             color: Color.fromARGB(255, 121, 145, 171),
                             fontSize: 16)),
                   ),
-                  Box(
-                    child: const PrimaryTextField(),
+                  const Box(
+                    child: PrimaryTextField(),
                   ),
                   const SizedBox(
                     height: 20,
@@ -54,8 +54,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             color: Color.fromARGB(255, 121, 145, 171),
                             fontSize: 16)),
                   ),
-                  Box(
-                    child: const PrimaryTextField(),
+                  const Box(
+                    child: PrimaryTextField(),
                   ),
                   const SizedBox(
                     height: 20,
@@ -67,8 +67,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             color: Color.fromARGB(255, 121, 145, 171),
                             fontSize: 16)),
                   ),
-                  Box(
-                    child: const PrimaryTextField(),
+                  const Box(
+                    child: PrimaryTextField(),
                   ),
                   const SizedBox(
                     height: 20,
@@ -80,8 +80,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             color: Color.fromARGB(255, 121, 145, 171),
                             fontSize: 16)),
                   ),
-                  Box(
-                    child: const PrimaryTextField(),
+                  const Box(
+                    child: PrimaryTextField(
+                      isPassword: true,
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -93,8 +95,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             color: Color.fromARGB(255, 121, 145, 171),
                             fontSize: 16)),
                   ),
-                  Box(
-                    child: const PrimaryTextField(),
+                  const Box(
+                    child: PrimaryTextField(
+                      isPassword: true,
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
