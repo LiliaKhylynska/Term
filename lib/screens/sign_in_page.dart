@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:term/screens/dashboard_page.dart';
+import 'package:term/screens/home_page.dart';
+import 'package:term/screens/registration_page.dart';
+import 'package:term/widgets/box.dart';
+import 'package:term/widgets/primary_button.dart';
+import 'package:term/widgets/primary_text_field.dart';
+import 'package:term/widgets/secondary_button.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({
@@ -24,6 +31,8 @@ class _SignInPageState extends State<SignInPage> {
     var password = passwordController.text;
     if (_users.containsKey(login)) {
       if (_users[login] == password) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const DashboardPage()));
       } else {
         showError('Wrong password');
       }
@@ -40,9 +49,16 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   @override
+  void dispose() {
+    loginController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 232, 243, 241),
+      backgroundColor: const Color.fromARGB(255, 193, 233, 236),
       body: Padding(
         padding: const EdgeInsets.all(73.0),
         child: Column(
@@ -61,93 +77,48 @@ class _SignInPageState extends State<SignInPage> {
                   height: 30,
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: 10, bottom: 5),
                   child: Text('Login',
                       style: TextStyle(
-                          color: Color.fromARGB(255, 0, 55, 34), fontSize: 16)),
+                          color: Color.fromARGB(255, 121, 145, 171),
+                          fontSize: 16)),
                 ),
-                TextField(
-                  controller: loginController,
-                  decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(255, 62, 83, 199), width: 2),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(255, 0, 55, 34), width: 2),
-                    ),
-                  ),
+                Box(
+                  child: PrimaryTextField(controller: loginController),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: 10, bottom: 5),
                   child: Text('Password',
                       style: TextStyle(
-                          color: Color.fromARGB(255, 0, 55, 34), fontSize: 16)),
+                          color: Color.fromARGB(255, 121, 145, 171),
+                          fontSize: 16)),
                 ),
-                TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(255, 62, 83, 199), width: 2),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(255, 0, 55, 34), width: 2),
-                    ),
+                Box(
+                  child: PrimaryTextField(
+                    isPassword: true,
+                    controller: passwordController,
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
+                PrimaryButton(
+                  text: 'Sign in',
                   onPressed: handleSignIn,
-                  style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(
-                        Color.fromARGB(255, 94, 194, 164)),
-                  ),
-                  child: const Text(
-                    'Sign in',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 16,
-                    ),
-                  ),
                 ),
               ],
             ),
-            OutlinedButton(
+            SecondaryButton(
+              text: 'Sign up',
               onPressed: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=> const RegistrationPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegistrationPage()));
               },
-              style: const ButtonStyle(
-                side: WidgetStatePropertyAll(BorderSide(
-                  width: 3,
-                  color: Color.fromARGB(255, 94, 194, 164),
-                )),
-              ),
-              child: const Text(
-                'Sign up',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 94, 194, 164),
-                  fontSize: 16,
-                ),
-              ),
             ),
           ],
         ),
