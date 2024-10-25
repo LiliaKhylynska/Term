@@ -4,9 +4,17 @@ class Box extends StatelessWidget {
   const Box({
     super.key,
     required this.child,
+    this.padding = const EdgeInsets.all(0),
+    this.margin = const EdgeInsets.all(0),
+    this.width,
+    this.height
   });
 
   final Widget child;
+  final EdgeInsets padding;
+  final EdgeInsets margin;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +31,10 @@ class Box extends StatelessWidget {
               offset: Offset(2, 2))
         ],
       ),
+      padding: padding,
+      margin: margin,
+      width: width,
+      height: height,
       child: child,
     );
   }

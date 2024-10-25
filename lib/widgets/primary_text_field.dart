@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:term/constants/colors.dart';
 
 class PrimaryTextField extends StatelessWidget {
   const PrimaryTextField({
@@ -14,8 +15,8 @@ class PrimaryTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       obscureText: isPassword,
-      style: const TextStyle(color: Color.fromARGB(255, 108, 74, 60)),
-      cursorColor: const Color.fromARGB(255, 108, 74, 60),
+      style: const TextStyle(color: AppColors.brown),
+      cursorColor: AppColors.brown,
       controller: controller,
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
