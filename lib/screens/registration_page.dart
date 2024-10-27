@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
 import 'package:term/database/database.dart';
@@ -5,6 +6,7 @@ import 'package:term/database/hive_database.dart';
 import 'package:term/models/user.dart';
 import 'package:term/screens/dashboard_page.dart';
 import 'package:term/widgets/box.dart';
+import 'package:term/widgets/error_popup.dart';
 import 'package:term/widgets/primary_button.dart';
 import 'package:term/widgets/primary_text_field.dart';
 import 'package:term/widgets/secondary_button.dart';
@@ -32,7 +34,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Color passwordErrorColor = Colors.transparent;
   Color passwordConfirmErrorColor = Colors.transparent;
 
+
   void handleSignUp() async {
+    var hasInternet = await checkInternet();
+    if (!hasInternet) {
+      await showDialog(
+          context: context,
+          builder: (BuildContext context) =>
+              const ErrorPopup(title: 'Error', text: 'No internet connection'));
+      return;
+    }
+    
     bool nameIsCorrect = nameController.text.isNotEmpty &&
         RegExp(r'^[A-Za-z]+$').hasMatch(nameController.text);
     if (nameIsCorrect) {
@@ -106,9 +118,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
       await database.setIsSignedIn(true);
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const DashboardPage()));
-    } else {
-      // showError('Wrong data');
-    }
+    } 
+  }
+  
+  Future<bool> checkInternet() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    return !connectivityResult.contains(ConnectivityResult.none);
   }
 
   @override
