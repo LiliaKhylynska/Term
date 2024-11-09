@@ -69,11 +69,4 @@ class HiveDatabase implements Database {
     await box.close();
     return result ?? false;
   }
-  //@override
-  // Future<void> save(String login, String password) async {
-  //   var database = await Hive.openBox(name);
-  //   await database.put(loginKey, login);
-  //   await database.put(passwordKey, password);
-  //   await database.close();
-  // }
 }

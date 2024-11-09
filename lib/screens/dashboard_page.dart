@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
 import 'package:term/screens/home_page.dart';
 import 'package:term/screens/profile_page.dart';
+import 'package:term/widgets/error_popup.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -13,6 +17,23 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   int selectedPageIndex = 0;
   final pageController = PageController();
+
+  StreamSubscription? subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> result) {
+      if (result.contains(ConnectivityResult.none)) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => const ErrorPopup(
+                title: 'Error', text: 'No internet connection'));
+      }
+    });
+  }
 
   @override
   void dispose() {

@@ -7,6 +7,7 @@ import 'package:term/screens/profile_edit_page.dart';
 import 'package:term/screens/registration_page.dart';
 import 'package:term/screens/sign_in_page.dart';
 import 'package:term/widgets/box.dart';
+import 'package:term/widgets/popup.dart';
 import 'package:term/widgets/primary_button.dart';
 import 'package:term/widgets/secondary_button.dart';
 
@@ -36,6 +37,53 @@ class _ProfilePageState extends State<ProfilePage> {
           login = user.login;
           email = user.email ?? "";
         });
+      }
+    });
+  }
+
+  void handleSignOut() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Popup(
+        title: 'Sign out',
+        text: 'Do you want to sign out?',
+        onNoPressed: () {
+          Navigator.pop(context, false);
+        },
+        onYesPressed: () {
+          Navigator.pop(context, true);
+        },
+      ),
+    ).then((value) async {
+      var result = value as bool;
+      if (result) {
+        await database.setIsSignedIn(false);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const SignInPage()));
+      }
+    });
+  }
+
+  void handleDelete() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Popup(
+        title: 'Delete profile',
+        text: 'Do you want to delete profile?',
+        onNoPressed: () {
+          Navigator.pop(context, false);
+        },
+        onYesPressed: () {
+          Navigator.pop(context, true);
+        },
+      ),
+    ).then((value) async {
+      var result = value as bool;
+      if (result) {
+        await database.delete();
+        await database.setIsSignedIn(false);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const RegistrationPage()));
       }
     });
   }
@@ -140,27 +188,14 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             PrimaryButton(
               text: 'Sign out',
-              onPressed: () async {
-                await database.setIsSignedIn(false);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignInPage()));
-              },
+              onPressed: handleSignOut,
             ),
             const SizedBox(
               height: 40,
             ),
             SecondaryButton(
               text: 'Delete profile',
-              onPressed: () async {
-                await database.delete();
-                await database.setIsSignedIn(false);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegistrationPage()));
-              },
+              onPressed: handleDelete,
             )
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
 import 'package:term/database/database.dart';
@@ -5,6 +6,7 @@ import 'package:term/database/hive_database.dart';
 import 'package:term/screens/dashboard_page.dart';
 import 'package:term/screens/registration_page.dart';
 import 'package:term/widgets/box.dart';
+import 'package:term/widgets/error_popup.dart';
 import 'package:term/widgets/primary_button.dart';
 import 'package:term/widgets/primary_text_field.dart';
 import 'package:term/widgets/secondary_button.dart';
@@ -28,6 +30,15 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController passwordController = TextEditingController();
 
   void handleSignIn() async {
+    var hasInternet = await checkInternet();
+    if (!hasInternet) {
+      await showDialog(
+          context: context,
+          builder: (BuildContext context) =>
+              const ErrorPopup(title: 'Error', text: 'No internet connection'));
+      return;
+    }
+
     var login = loginController.text;
     var password = passwordController.text;
     var user = await database.get();
@@ -57,6 +68,12 @@ class _SignInPageState extends State<SignInPage> {
     loginController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<bool> checkInternet() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    return !connectivityResult.contains(ConnectivityResult.none);
   }
 
   @override

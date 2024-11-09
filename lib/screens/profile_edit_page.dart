@@ -78,7 +78,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       });
     }
 
-    bool emailIsCorrect =
+    bool emailIsCorrect = emailController.text.isEmpty ||
         RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
             .hasMatch(emailController.text);
     if (emailIsCorrect) {
