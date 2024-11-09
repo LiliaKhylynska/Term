@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:term/constants/colors.dart';
 import 'package:term/screens/home_page.dart';
 import 'package:term/screens/profile_page.dart';
 
@@ -39,7 +40,8 @@ class _DashboardPageState extends State<DashboardPage> {
             selectedPageIndex = index;
           });
           pageController.animateToPage(index,
-              duration: const Duration(milliseconds: 300), curve: Curves.bounceInOut);
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.bounceInOut);
         },
         type: BottomNavigationBarType.fixed,
         items: const [
@@ -51,7 +53,7 @@ class _DashboardPageState extends State<DashboardPage> {
               icon: Icon(Icons.calendar_month), label: 'Calendar'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         ],
-        backgroundColor: const Color.fromARGB(255, 17, 112, 130),
+        backgroundColor: AppColors.green,
         selectedItemColor: Colors.white,
         unselectedItemColor: const Color.fromARGB(255, 125, 181, 188),
       ),

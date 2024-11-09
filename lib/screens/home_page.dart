@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:term/constants/colors.dart';
 import 'package:term/models/chat.dart';
 import 'package:term/models/message.dart';
 import 'package:term/models/student.dart';
+import 'package:term/widgets/box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -57,14 +59,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 193, 233, 236),
+      backgroundColor: AppColors.lightBlue,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: const Text(
           'Chats',
           style: TextStyle(
-            color: Color.fromARGB(255, 17, 112, 130),
+            color: AppColors.green,
             fontWeight: FontWeight.bold,
             fontFamily: "Blogger-Sans",
           ),
@@ -77,71 +79,60 @@ class _HomePageState extends State<HomePage> {
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemCount: chats.length,
-            itemBuilder: (BuildContext context, int index) => Container(
-              margin: const EdgeInsets.only(
+            itemBuilder: (BuildContext context, int index) => Padding(
+              padding: const EdgeInsets.only(
                   bottom: 0, left: 20, right: 20, top: 20),
-              decoration: const BoxDecoration(
-                // border: Border.all(width: 3.0, color: Color.fromARGB(255, 94, 194, 164)),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(7.0),
-                ),
-                color: Color.fromARGB(255, 239, 238, 242),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromARGB(255, 179, 207, 213),
-                      blurRadius: 0.0,
-                      offset: Offset(2, 2))
-                ],
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(7.0),
-                      topLeft: Radius.circular(7.0),
-                    ),
-                    child: Image.asset(
-                      students[chats[index].studentId].image,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${students[chats[index].studentId].firstName} ${students[chats[index].studentId].lastName}",
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 108, 74, 60),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              fontFamily: "Blogger-Sans"),
-                        ),
-                        Text(
-                          chats[index].messages.last.text,
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 108, 74, 60),
-                              fontFamily: "Blogger-Sans"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      dateFormat(chats[index].messages.last.time),
-                      style: const TextStyle(
-                        color: Color.fromARGB(255, 108, 74, 60),
+              child: Box(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(7.0),
+                        topLeft: Radius.circular(7.0),
+                      ),
+                      child: Image.asset(
+                        students[chats[index].studentId].image,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.fill,
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${students[chats[index].studentId].firstName} ${students[chats[index].studentId].lastName}",
+                            style: const TextStyle(
+                                color: AppColors.brown,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                fontFamily: "Blogger-Sans"),
+                          ),
+                          Text(
+                            chats[index].messages.last.text,
+                            style: const TextStyle(
+                                color: AppColors.brown,
+                                fontFamily: "Blogger-Sans"),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        dateFormat(chats[index].messages.last.time),
+                        style: const TextStyle(
+                          color: AppColors.brown,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

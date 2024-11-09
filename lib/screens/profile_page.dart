@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:term/constants/colors.dart';
+import 'package:term/database/database.dart';
+import 'package:term/database/hive_database.dart';
+import 'package:term/models/user.dart';
+import 'package:term/screens/profile_edit_page.dart';
+import 'package:term/screens/registration_page.dart';
+import 'package:term/screens/sign_in_page.dart';
+import 'package:term/widgets/box.dart';
 import 'package:term/widgets/primary_button.dart';
 import 'package:term/widgets/secondary_button.dart';
 
@@ -10,22 +18,39 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String firstName = 'Katya';
-  String lastName = 'Dobush';
-  String login = 'katya_dobush';
-  String email = 'qwerty@example.com';
+  String name = '';
+  String surname = '';
+  String login = '';
+  String email = '';
+
+  final Database database = HiveDatabase();
+
+  @override
+  void initState() {
+    super.initState();
+    database.get().then((User? user) {
+      if (user != null) {
+        setState(() {
+          name = user.name;
+          surname = user.surname;
+          login = user.login;
+          email = user.email ?? "";
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 193, 233, 236),
+      backgroundColor: AppColors.lightBlue,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: const Text(
           'Profile',
           style: TextStyle(
-            color: Color.fromARGB(255, 17, 112, 130),
+            color: AppColors.green,
             fontWeight: FontWeight.bold,
             fontFamily: "Blogger-Sans",
           ),
@@ -43,67 +68,99 @@ class _ProfilePageState extends State<ProfilePage> {
                 fit: BoxFit.cover,
               ),
             ),
-            Container(
+            Box(
               margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(0),
               width: double.infinity,
-              decoration: const BoxDecoration(
-                // border: Border.all(width: 3.0, color: Color.fromARGB(255, 94, 194, 164)),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(7.0),
-                ),
-                color: Color.fromARGB(255, 239, 238, 242),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromARGB(255, 179, 207, 213),
-                      blurRadius: 0.0,
-                      offset: Offset(2, 2))
-                ],
-              ),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'First name: $firstName',
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 108, 74, 60),
-                        fontFamily: "Blogger-Sans",
-                        fontSize: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'First name: $name',
+                          style: const TextStyle(
+                              color: AppColors.brown,
+                              fontFamily: "Blogger-Sans",
+                              fontSize: 20),
+                        ),
+                        Text(
+                          'Last name: $surname',
+                          style: const TextStyle(
+                              color: AppColors.brown,
+                              fontFamily: "Blogger-Sans",
+                              fontSize: 20),
+                        ),
+                        Text(
+                          'Login: $login',
+                          style: const TextStyle(
+                              color: AppColors.brown,
+                              fontFamily: "Blogger-Sans",
+                              fontSize: 20),
+                        ),
+                        Text(
+                          'Email: $email',
+                          style: const TextStyle(
+                              color: AppColors.brown,
+                              fontFamily: "Blogger-Sans",
+                              fontSize: 20),
+                        )
+                      ],
+                    ),
                   ),
-                  Text(
-                    'Last name: $lastName',
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 108, 74, 60),
-                        fontFamily: "Blogger-Sans",
-                        fontSize: 20),
-                  ),
-                  Text(
-                    'Login: $login',
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 108, 74, 60),
-                        fontFamily: "Blogger-Sans",
-                        fontSize: 20),
-                  ),
-                  Text(
-                    'email: $email',
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 108, 74, 60),
-                        fontFamily: "Blogger-Sans",
-                        fontSize: 20),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ProfileEditPage())).then((user) {
+                        if (user is User) {
+                          setState(() {
+                            name = user.name;
+                            surname = user.surname;
+                            login = user.login;
+                            email = user.email ?? '';
+                          });
+                        }
+                      });
+                    },
+                    icon: const Icon(Icons.edit),
+                    color: AppColors.green,
                   )
                 ],
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             PrimaryButton(
               text: 'Sign out',
-              onPressed: () {},
+              onPressed: () async {
+                await database.setIsSignedIn(false);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInPage()));
+              },
             ),
             const SizedBox(
               height: 40,
             ),
             SecondaryButton(
               text: 'Delete profile',
-              onPressed: () {},
+              onPressed: () async {
+                await database.delete();
+                await database.setIsSignedIn(false);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegistrationPage()));
+              },
             )
           ],
         ),

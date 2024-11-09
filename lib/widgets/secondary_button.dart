@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:term/constants/colors.dart';
 
 class SecondaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -13,13 +14,13 @@ class SecondaryButton extends StatelessWidget {
         minimumSize: WidgetStatePropertyAll(Size(300, 50)),
         side: WidgetStatePropertyAll(BorderSide(
           width: 3,
-          color: Color.fromARGB(255, 165, 67, 32),
+          color: AppColors.orange,
         )),
       ),
       child: Text(
         text,
         style: const TextStyle(
-          color: Color.fromARGB(255, 165, 67, 32),
+          color: AppColors.orange,
           fontSize: 16,
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:term/constants/colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -12,7 +13,7 @@ class PrimaryButton extends StatelessWidget {
       style: const ButtonStyle(
         minimumSize: WidgetStatePropertyAll(Size(300, 50)),
         backgroundColor:
-            WidgetStatePropertyAll(Color.fromARGB(255, 165, 67, 32)),
+            WidgetStatePropertyAll(AppColors.orange),
       ),
       child: Text(
         text,
