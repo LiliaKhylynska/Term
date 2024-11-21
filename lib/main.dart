@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:term/database/database.dart';
+import 'package:term/database/firebase_database.dart';
 import 'package:term/database/hive_database.dart';
 import 'package:term/screens/dashboard_page.dart';
 import 'package:term/screens/loading_page.dart';
@@ -33,7 +35,8 @@ class MyApp extends StatelessWidget {
   }
 
   Future<bool> init() async {
-    Database database = HiveDatabase();
+   
+    Database database = FirebaseDatabase();
     await database.init();
     return await database.getIsSignedIn();
   }

@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
 import 'package:term/database/database.dart';
+import 'package:term/database/firebase_database.dart';
 import 'package:term/database/hive_database.dart';
 import 'package:term/models/user.dart';
 import 'package:term/screens/dashboard_page.dart';
@@ -19,7 +20,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  Database database = HiveDatabase();
+  Database database = FirebaseDatabase();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();

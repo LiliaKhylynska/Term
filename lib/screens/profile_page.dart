@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
 import 'package:term/database/database.dart';
+import 'package:term/database/firebase_database.dart';
 import 'package:term/database/hive_database.dart';
 import 'package:term/models/user.dart';
 import 'package:term/screens/profile_edit_page.dart';
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String login = '';
   String email = '';
 
-  final Database database = HiveDatabase();
+  final Database database = FirebaseDatabase();
 
   @override
   void initState() {

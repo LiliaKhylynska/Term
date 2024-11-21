@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
 import 'package:term/database/database.dart';
+import 'package:term/database/firebase_database.dart';
 import 'package:term/database/hive_database.dart';
 import 'package:term/screens/dashboard_page.dart';
 import 'package:term/screens/registration_page.dart';
@@ -21,7 +22,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  Database database = HiveDatabase();
+  Database database = FirebaseDatabase();
 
   Color loginErrorColor = Colors.transparent;
   Color passwordErrorColor = Colors.transparent;
