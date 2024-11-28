@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
 import 'package:term/database/database.dart';
+import 'package:term/database/firebase_database.dart';
 import 'package:term/database/hive_database.dart';
 import 'package:term/models/user.dart';
 import 'package:term/widgets/box.dart';
@@ -15,7 +16,7 @@ class ProfileEditPage extends StatefulWidget {
 }
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
-  Database database = HiveDatabase();
+  Database database = FirebaseDatabase();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
