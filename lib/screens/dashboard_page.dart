@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:term/constants/colors.dart';
+import 'package:term/screens/flash_light_page.dart';
 import 'package:term/screens/home_page.dart';
 import 'package:term/screens/profile_page.dart';
 import 'package:term/widgets/error_popup.dart';
@@ -49,7 +50,7 @@ class _DashboardPageState extends State<DashboardPage> {
         children: const [
           HomePage(),
           ProfilePage(),
-          Scaffold(),
+          FlashLightPage(),
           Scaffold(),
           Scaffold(),
         ],
