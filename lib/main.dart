@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:term/database/database.dart';
 import 'package:term/database/firebase_database.dart';
+import 'package:term/database/hive_database.dart';
 import 'package:term/screens/blocs/profile_bloc.dart';
 import 'package:term/screens/blocs/profile_edit_bloc.dart';
 import 'package:term/screens/blocs/registration_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:term/screens/blocs/sign_in_bloc.dart';
 import 'package:term/screens/dashboard_page.dart';
 import 'package:term/screens/loading_page.dart';
 import 'package:term/screens/sign_in_page.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<Database>(
-      create: (context) => FirebaseDatabase(),
+      create: (context) => HiveDatabase(),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ProfileBloc>(
@@ -61,7 +64,7 @@ class MyApp extends StatelessWidget {
   }
 
   Future<bool> init(BuildContext context) async {
-    Database database = FirebaseDatabase();
+    Database database = HiveDatabase();
     await database.init();
     return await database.getIsSignedIn();
   }
