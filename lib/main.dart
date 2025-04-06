@@ -12,7 +12,6 @@ import 'package:term/screens/dashboard_page.dart';
 import 'package:term/screens/loading_page.dart';
 import 'package:term/screens/sign_in_page.dart';
 
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {

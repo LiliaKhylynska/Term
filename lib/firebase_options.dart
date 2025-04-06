@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'term-b961b.firebasestorage.app',
     iosBundleId: 'com.example.term',
   );
+
 }
